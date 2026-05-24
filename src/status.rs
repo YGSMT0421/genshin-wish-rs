@@ -10,36 +10,53 @@ pub enum Rarity {
 pub enum PoolType {
     Character,
     Weapon,
-    // 这里还该有个混池的
+    Chronicled,
     #[default]
     Permanent,
 }
 
 #[derive(Default)]
 pub enum ItemType {
-    #[default]
     Character,
+    #[default]
     Weapon,
 }
 
-#[derive(Default)]
+pub enum CharacterStatus {
+    Featured,
+    OffBanner,
+    Guaranteed,
+    CapturingRadiance,
+    GuaranteedCapturingRadiance,
+}
+
 pub enum WeaponStatus {
-    Expected,
-    UnexpectedUp,
-    #[default]
-    UnexpectedPermanent,
+    Featured,
+    OffBannerRateUp,
+    OffBannerPermanent,
+    Guaranteed,
+}
+
+pub enum FourStarStatus {
+    Common,
+    RateUp,
+    GuaranteedCommon,
+    GuaranteedRateUp,
+}
+
+pub enum ChronicledStatus {
+    Featured,
+    OffBanner,
+    Guaranteed,
 }
 
 #[derive(Default)]
-pub struct WishResult {
+pub struct WishResult<Status> {
     pub item_name: String,
     pub item_type: ItemType,
-    pub pool: PoolType,
+    pub pool_type: PoolType,
     pub rarity: Rarity,
     pub wish_times: u8,
-
-    // 下面的都是不同卡池可选的参数
-    pub guaranteed: bool,
-    pub fate_point: u8,
-    pub pool_identifier: String, // 这行是混池的
+    pub five_status: Option<Status>,
+    pub four_status: Option<FourStarStatus>,
 }
