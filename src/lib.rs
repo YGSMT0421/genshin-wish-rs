@@ -1,18 +1,41 @@
+mod pool_data;
 mod pools;
 mod status;
-mod pool_data;
-
-pub fn add(left: u64, right: u64) -> u64 {
-    left + right
-}
 
 #[cfg(test)]
 mod tests {
     use super::*;
 
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
+    mod test_character_pool {
+        use super::*;
+
+        trait CharacterPoolEditor {
+            fn five_wish_times_editor(&mut self, new: u8);
+            fn four_wish_times_editor(&mut self, new: u8);
+            fn guaranteed_editor(&mut self, new: bool);
+            fn off_banner_times_editor(&mut self, new: u8);
+        }
+
+        impl<'a> CharacterPoolEditor for pools::CharacterPool<'a> {
+            fn five_wish_times_editor(&mut self, new: u8) {
+                self.five_wish_times = new;
+            }
+
+            fn four_wish_times_editor(&mut self, new: u8) {
+                self.four_wish_times = new;
+            }
+
+            fn guaranteed_editor(&mut self, new: bool) {
+                self.guaranteed = new;
+            }
+
+            fn off_banner_times_editor(&mut self, new: u8) {
+                self.off_banner_times = new;
+            }
+        }
+        
+        fn setup_pool() -> CharacterPool {
+            
+        }
     }
 }
